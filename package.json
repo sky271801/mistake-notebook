@@ -1,0 +1,39 @@
+{
+  "name": "cuotibenapp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "vitest run",
+    "cap:sync": "npm run build && cap sync android && node scripts/fix-android-strings.mjs",
+    "cap:open": "cap open android",
+    "apk:debug": "scripts\\build-debug-apk.cmd"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.4.4",
+    "@capacitor/camera": "^7.0.2",
+    "@capacitor/core": "^7.4.4",
+    "@capacitor/filesystem": "^7.1.8",
+    "@capacitor/share": "^7.0.4",
+    "dexie": "^4.2.0",
+    "lucide-react": "^0.468.0",
+    "motion": "^12.40.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.4",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vitest": "^4.1.9"
+  }
+}
