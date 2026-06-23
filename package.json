@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "dev:site": "vite --config vite.site.config.ts --host 0.0.0.0",
     "build": "tsc && vite build",
+    "build:site": "tsc -p tsconfig.site.json && vite build --config vite.site.config.ts",
+    "preview:site": "vite preview --config vite.site.config.ts --host 0.0.0.0",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
     "cap:sync": "npm run build && cap sync android && node scripts/fix-android-strings.mjs",
