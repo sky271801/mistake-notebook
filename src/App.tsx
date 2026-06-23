@@ -1312,6 +1312,50 @@ function ChoiceInput({
 }) {
   const [open, setOpen] = useState(false);
   const selected = options.find((option) => option.id === value);
+  const sheet = (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          className="sheet-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={fadeSlide}
+          onClick={() => setOpen(false)}
+        >
+          <motion.div
+            className="choice-sheet"
+            initial={{ opacity: 0, transform: 'translate3d(0, 18px, 0) scale(0.98)' }}
+            animate={{ opacity: 1, transform: 'translate3d(0, 0, 0) scale(1)' }}
+            exit={{ opacity: 0, transform: 'translate3d(0, 12px, 0) scale(0.98)' }}
+            transition={springSoft}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="choice-sheet-head">
+              <h2>{label ?? placeholder}</h2>
+              <MotionTapButton type="button" onClick={() => setOpen(false)}>完成</MotionTapButton>
+            </div>
+            <div className="choice-list">
+              {options.map((option) => (
+                <MotionTapButton
+                  key={option.id}
+                  type="button"
+                  className={option.id === value ? 'selected' : ''}
+                  onClick={() => {
+                    onChange(option.id);
+                    setOpen(false);
+                  }}
+                >
+                  <span>{option.name}</span>
+                  {option.id === value && <Check size={18} />}
+                </MotionTapButton>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 
   return (
     <div className={label ? 'field' : 'choice-standalone'}>
@@ -1320,48 +1364,7 @@ function ChoiceInput({
         <span className={!selected ? 'placeholder' : ''}>{selected?.name ?? placeholder}</span>
         <ChevronDown size={18} />
       </MotionTapButton>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            className="sheet-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={fadeSlide}
-            onClick={() => setOpen(false)}
-          >
-            <motion.div
-              className="choice-sheet"
-              initial={{ opacity: 0, y: 18, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 12, scale: 0.98 }}
-              transition={springSoft}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <div className="choice-sheet-head">
-                <h2>{label ?? placeholder}</h2>
-                <MotionTapButton type="button" onClick={() => setOpen(false)}>完成</MotionTapButton>
-              </div>
-              <div className="choice-list">
-                {options.map((option) => (
-                  <MotionTapButton
-                    key={option.id}
-                    type="button"
-                    className={option.id === value ? 'selected' : ''}
-                    onClick={() => {
-                      onChange(option.id);
-                      setOpen(false);
-                    }}
-                  >
-                    <span>{option.name}</span>
-                    {option.id === value && <Check size={18} />}
-                  </MotionTapButton>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {createPortal(sheet, document.body)}
     </div>
   );
 }
