@@ -2,8 +2,6 @@
 
 一个离线优先的安卓错题本 App。它面向个人学习场景：用图片记录题目，用文字或图片记录答案，按复习结果自动安排下一次复习。
 
-App 内显示名称是 **错题本**；仓库名使用英文 **Mistake Notebook**，避免拼音命名不直观。
-
 ## Features
 
 - 多图导入错题，支持相册多选和拍照。
@@ -41,71 +39,3 @@ App 内显示名称是 **错题本**；仓库名使用英文 **Mistake Notebook*
 - `settings`：复习间隔、高考年份、图片压缩设置
 
 备份功能会导出一个包含文字、设置、复习记录和图片 data URL 的 JSON 文件。
-
-## Development
-
-Windows PowerShell 下建议使用 `npm.cmd`，避免执行策略影响 `npm.ps1`。
-
-```bash
-npm.cmd install
-npm.cmd run dev
-npm.cmd run test
-npm.cmd run build
-```
-
-浏览器预览：
-
-```bash
-npm.cmd run dev
-```
-
-## Android Debug APK
-
-本机打包脚本会设置 JDK 和 Android SDK 路径，执行 Capacitor sync，然后调用 Gradle 构建 debug APK。
-
-```bash
-npm.cmd run apk:debug
-```
-
-生成文件：
-
-```text
-cuotiben-debug.apk
-```
-
-如果需要安装到已连接的安卓设备：
-
-```bash
-adb install -r cuotiben-debug.apk
-adb shell monkey -p com.local.cuotiben 1
-```
-
-## Android Notes
-
-- 当前 Android application id 是 `com.local.cuotiben`。
-- App 显示名是 `错题本`。
-- 状态栏和导航栏已按浅色 UI 配置为深色图标。
-- Debug APK 不适合直接上架应用商店；正式发布需要 release 签名、版本号管理和隐私说明。
-
-## Tests
-
-当前测试覆盖：
-
-- 初次复习日期与难度规则
-- 复习阶段调度规则
-- 高考年份默认规则
-- 高考倒计时计算
-
-运行：
-
-```bash
-npm.cmd run test
-```
-
-## Roadmap
-
-- 错题详情页编辑与删除
-- 更完整的复习统计
-- 批量导入/导出体验优化
-- OCR 或自动去笔迹能力
-- 更细粒度的图片裁剪与标注
